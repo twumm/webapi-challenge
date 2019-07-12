@@ -76,7 +76,16 @@ router.delete('/:id', validateProjectId, async (req, res, next) => {
 })
 
 router.put('/:id', [validateProjectId, validationProjectContent], async (req, res, next) => {
-  
+  const updates = { name, description } = req.body;
+  try {
+    const updatedProject = await projectDb.update(req.project.id, updates)
+    res
+      .status(200)
+      .json(updatedProject);
+  }
+  catch (error) {
+    next(error);
+  }
 })
 
 // custom middlewares
