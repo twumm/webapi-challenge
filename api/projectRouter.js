@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const projectDb = require('../data/helpers/projectModel');
+const actionDb = require('../data/helpers/actionModel');
 
 router.post('/', validationProjectContent, async (req, res, next) => {
   const project = { name, description } = req.body;
@@ -14,13 +15,29 @@ router.post('/', validationProjectContent, async (req, res, next) => {
   }
 })
 
+router.post('/:id/action', [validateProjectId, validationActionContent], async (req, res, next) => {
+  const { description, notes } = req.body;
+  const action = {
+    project_id: req.params.id,
+    description,
+    notes
+  }
+  try {
+    const newAction = await actionDb.insert(action);
+    res.status(201).json(newAction)
+  }
+  catch (error) {
+    next(error);
+  }
+})
+
 // custom middlewares
 async function validateProjectId(req, res, next) {
   const { id } = req.params;
   if (isNaN(Number(id))) {
     res.status(400).json({ message: 'User id must be a number' })
   }
-  const project = await projectDb.getById(id);
+  const project = await projectDb.get(id);
   if (project) {
     req.project = project;
     next();
