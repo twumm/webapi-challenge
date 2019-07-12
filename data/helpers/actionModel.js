@@ -2,6 +2,9 @@ const db = require('../dbConfig.js');
 const mappers = require('./mappers');
 
 module.exports = {
+  getAllActions: function() {
+    return db('actions');
+  },
   get: function(id) {
     let query = db('actions');
 
