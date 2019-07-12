@@ -17,12 +17,66 @@ function App() {
   const [error, setError] = useState('');
 
   const getAllProjects = async () => {
-    debugger;
     setLoading(true);
     try {
-      debugger;
       const projects = await axios.get(`${projectsAPI}/api/projects`)
       setProjects(projects.data);
+    }
+    catch (error) {
+      setError(error.message);
+    }
+    finally {
+      setLoading(false);
+    }
+  }
+
+  const getProject = async (id) => {
+    setLoading(true);
+    try {
+      const project = await axios.get(`${projectsAPI}/api/projects/${id}`)
+      setProjects(project.data);
+    }
+    catch (error) {
+      setError(error.message);
+    }
+    finally {
+      setLoading(false);
+    }
+  }
+
+  const postProject = async (newProject) => {
+    setLoading(true);
+    try {
+      const project = await axios.post(`${projectsAPI}/api/projects/`, newProject)
+      setProjects(project.data);
+    }
+    catch (error) {
+      setError(error.message);
+    }
+    finally {
+      setLoading(false);
+    }
+  }
+
+  const deleteProject = async (id) => {
+    setLoading(true);
+    try {
+      const deletedProject = await axios.post(`${projectsAPI}/api/projects/${id}`)
+      setProjects(deletedProject.data);
+    }
+    catch (error) {
+      setError(error.message);
+    }
+    finally {
+      setLoading(false);
+    }
+  }
+
+  const updateProject = async (id, update) => {
+    setLoading(true);
+    try {
+      const updatedProject = await axios.post(`${projectsAPI}/api/projects/${id}`, update)
+      setProjects(updatedProject.data);
     }
     catch (error) {
       setError(error.message);
@@ -36,6 +90,8 @@ function App() {
     <div className="App">
       <ProjectList
         projects={projects}
+        loading={loading}
+        error={error}
       />
     </div>
   );
