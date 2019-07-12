@@ -61,7 +61,18 @@ router.get('/:id/action', validateProjectId, async (req, res, next) => {
 })
 
 router.delete('/:id', validateProjectId, async (req, res, next) => {
-
+  try {
+    const deletedCount = await projectDb.remove(req.project.id);
+    res
+      .status(200)
+      .json({
+        count: deletedCount,
+        deletedProject: req.project
+      })
+  }
+  catch (error) {
+    next(error);
+  }
 })
 
 router.put('/:id', [validateProjectId, validationProjectContent], async (req, res, next) => {
