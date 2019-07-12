@@ -6,10 +6,11 @@ const projectRouter = require('./projectRouter').router;
 const actionRouter = require('./actionRouter');
 
 server.use(express.json());
+server.use(cors());
 server.use(logger);
 server.use('/api/projects', projectRouter);
 server.use('/api/actions', actionRouter);
-server.use(cors);
+
 
 server.get('/', (req, res) => {
   res.send('Projects and actions!');
