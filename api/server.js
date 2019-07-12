@@ -6,6 +6,7 @@ const projectRouter = require('./projectRouter');
 
 server.use(express.json());
 server.use(logger);
+server.use('/api/projects', projectRouter);
 
 server.get('/', (req, res) => {
   res.send('Projects and actions!');
