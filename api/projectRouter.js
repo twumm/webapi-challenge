@@ -3,6 +3,17 @@ const express = require('express');
 const router = express.Router();
 const projectDb = require('../data/helpers/projectModel');
 
+router.post('/', validationProjectContent, async (req, res, next) => {
+  const project = { name, description } = req.body;
+  try {
+    const newProject = await projectDb.insert(project);
+    res.status(201).json(newProject);
+  }
+  catch(error) {
+    next(error);
+  }
+})
+
 // custom middlewares
 async function validateProjectId(req, res, next) {
   const { id } = req.params;
