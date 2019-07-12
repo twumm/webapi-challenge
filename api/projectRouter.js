@@ -42,7 +42,12 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:id', validateProjectId, async (req, res, next) => {
-
+  try {
+    res.status(200).json(req.project);
+  }
+  catch (error) {
+    next(error);
+  }
 })
 
 router.delete('/:id', validateProjectId, async (req, res, next) => {
