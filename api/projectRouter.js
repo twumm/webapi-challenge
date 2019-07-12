@@ -31,6 +31,22 @@ router.post('/:id/action', [validateProjectId, validationActionContent], async (
   }
 })
 
+router.get('/', async (req, res, next) => {
+
+})
+
+router.get('/:id', validateProjectId, async (req, res, next) => {
+
+})
+
+router.delete('/:id', validateProjectId, async (req, res, next) => {
+
+})
+
+router.put('/:id', [validateProjectId, validationProjectContent], async (req, res, next) => {
+  
+})
+
 // custom middlewares
 async function validateProjectId(req, res, next) {
   const { id } = req.params;
