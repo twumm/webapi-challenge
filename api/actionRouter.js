@@ -15,16 +15,34 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
-  
+router.get('/:id', validateActionId, async (req, res, next) => {
+  try {
+    res
+      .status(200)
+      .json(req.action);
+  }
+  catch (error) {
+    next(error);
+  }
 })
 
-router.delete('/:id', async (req, res, next) => {
-  
+router.delete('/:id', validateActionId, async (req, res, next) => {
+  try {
+    const deletedCount = await actionDb.remove(req.action.id);
+    res
+      .status(200)
+      .json({
+        deletedCount,
+        deletedAction: req.action
+      })
+  }
+  catch (error) {
+    next(error);
+  }
 })
 
 router.put('/:id', async (req, res, next) => {
-  
+
 })
 
 // custom middlewares
