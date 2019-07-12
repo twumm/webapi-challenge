@@ -3,10 +3,12 @@ const cors = require('cors');
 
 const server = express();
 const projectRouter = require('./projectRouter');
+const actionRouter = require('./actionRouter');
 
 server.use(express.json());
 server.use(logger);
 server.use('/api/projects', projectRouter);
+server.use('/api/actions', actionRouter);
 
 server.get('/', (req, res) => {
   res.send('Projects and actions!');
