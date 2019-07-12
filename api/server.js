@@ -9,6 +9,7 @@ server.use(express.json());
 server.use(logger);
 server.use('/api/projects', projectRouter);
 server.use('/api/actions', actionRouter);
+server.use(cors);
 
 server.get('/', (req, res) => {
   res.send('Projects and actions!');
