@@ -41,9 +41,9 @@ function validationProjectContent(req, res, next) {
 
 function validationActionContent(req, res, next) {
   if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-    res.status(400).json({ message: "Missing project data" });
+    res.status(400).json({ message: "Missing action data" });
   } else if (!req.body.description || !req.body.notes) {
-    res.status(400).json({ message: "Missing required *name* and *description* fields" });
+    res.status(400).json({ message: "Missing required *description* and *notes* fields" });
   } else {
     next();
   }
