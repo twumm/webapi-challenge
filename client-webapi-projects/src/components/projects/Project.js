@@ -3,9 +3,9 @@ import React from 'react'
 const Project = ({ name, description, completed }) => {
   return (
     <div>
-      <h4>{name}</h4>
-      <h5>{description}</h5>
-      <p>{completed}</p>
+      <h4>Project name: {name}</h4>
+      <h5>Description: {description}</h5>
+      <p>Status: {completed}</p>
     </div>
   )
 }
