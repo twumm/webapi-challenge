@@ -32,7 +32,13 @@ router.post('/:id/action', [validateProjectId, validationActionContent], async (
 })
 
 router.get('/', async (req, res, next) => {
-
+  try {
+    const projects = await projectDb.getAllProjects();
+    res.status(200).json(projects);
+  }
+  catch (error) {
+    next(error);
+  }
 })
 
 router.get('/:id', validateProjectId, async (req, res, next) => {
