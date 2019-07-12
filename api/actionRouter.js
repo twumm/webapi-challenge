@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const actionDb = require('../data/helpers/actionModel');
+const validateActionContent = require('./projectRouter').validationActionContent;
 
 router.get('/', async (req, res, next) => {
   try {
@@ -41,8 +42,17 @@ router.delete('/:id', validateActionId, async (req, res, next) => {
   }
 })
 
-router.put('/:id', async (req, res, next) => {
-
+router.put('/:id', [validateActionId ,validateActionContent], async (req, res, next) => {
+  const update = { description, notes } = req.body;
+  try {
+    const updatedAction = await actionDb.update(req.action.id, update);
+    res
+      .status(200)
+      .json(updatedAction);
+  }
+  catch (error) {
+    next(error);
+  }
 })
 
 // custom middlewares
