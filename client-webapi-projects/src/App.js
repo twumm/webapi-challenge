@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import ProjectList from './components/projects/ProjectList';
 import './App.css';
@@ -87,17 +88,19 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <ProjectList
-        projects={projects}
-        loading={loading}
-        error={error}
-        getProject={getProject}
-        createProject={createProject}
-        deleteProject={deleteProject}
-        updateProject={updateProject}
-      />
-    </div>
+    <Router>
+      <div className="App">
+        <ProjectList
+          projects={projects}
+          loading={loading}
+          error={error}
+          getProject={getProject}
+          createProject={createProject}
+          deleteProject={deleteProject}
+          updateProject={updateProject}
+        />
+      </div>
+    </Router>
   );
 }
 
