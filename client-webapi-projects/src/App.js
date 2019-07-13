@@ -44,7 +44,7 @@ function App() {
     }
   }
 
-  const postProject = async (newProject) => {
+  const createProject = async (newProject) => {
     setLoading(true);
     try {
       const project = await axios.post(`${projectsAPI}/api/projects/`, newProject)
@@ -92,6 +92,10 @@ function App() {
         projects={projects}
         loading={loading}
         error={error}
+        getProject={getProject}
+        createProject={createProject}
+        deleteProject={deleteProject}
+        updateProject={updateProject}
       />
     </div>
   );
