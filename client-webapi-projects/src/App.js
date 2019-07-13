@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import ProjectList from './components/projects/ProjectList';
+import Project from './components/projects/Project';
 import './App.css';
 
 const projectsAPI = 'http://localhost:5000';
@@ -13,6 +14,7 @@ function App() {
   }, []);
 
   const [projects, setProjects] = useState([]);
+  const [project, setProject] = useState({});
   const [actions, setActions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -35,7 +37,7 @@ function App() {
     setLoading(true);
     try {
       const project = await axios.get(`${projectsAPI}/api/projects/${id}`)
-      setProjects(project.data);
+      setProject(project.data);
     }
     catch (error) {
       setError(error.message);
@@ -88,19 +90,39 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="App">
-        <ProjectList
-          projects={projects}
-          loading={loading}
-          error={error}
-          getProject={getProject}
-          createProject={createProject}
-          deleteProject={deleteProject}
-          updateProject={updateProject}
-        />
-      </div>
-    </Router>
+    <div className="App">
+      <Route
+        exact
+        path="/"
+        render={props => (
+          <ProjectList
+            {...props}
+            projects={projects}
+            loading={loading}
+            error={error}
+            createProject={createProject}
+          />
+        )}
+      />
+      <Route
+        exact
+        path={`/projects/:id`}
+        render={props => (
+          <Project
+            {...props}
+            project={project}
+            deleteProject={deleteProject}
+            updateProject={updateProject}
+          />
+        )}
+      />
+      {/* <ProjectList
+        getProject={getProject}
+        createProject={createProject}
+        deleteProject={deleteProject}
+        updateProject={updateProject}
+      /> */}
+    </div>
   );
 }
 
