@@ -25,14 +25,22 @@ In this challenge, create a web API around the following resources: `Projects` a
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] Mention two parts of Express that you learned about this week.
+* Middleware
+* Subroutes
 
 - [ ] Describe Middleware?
+* A middleware helps you perform modular and repetitive actions by extracting or creating the method for such an action and requiring it where needed as a function invocation or declaration.
 
 - [ ] Describe a Resource?
+* A resource in web terms is anything that we get from the web. It can contain any sort of information the application needs to run successfully or needs to feedback to users - status of a user's request etc.
 
 - [ ] What can the API return to help clients know if a request was successful?
+* A status of within the 200 range or a response from the server containing the data the client requested for.
 
 - [ ] How can we partition our application into sub-applications?
+We create the various folders based on the actions to be performed - forinstance in this project, I grouped all actions related to projects in one file and all actions related to actions in another.
+After this, I exported and subsequently required the routes as a middleware in the server.js file passing the export as the route as the first variable and the export as the second:
+`express.use('/api/projects', projectRouter);`
 
 ## Project Setup
 

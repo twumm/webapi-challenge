@@ -3,11 +3,16 @@ const mappers = require('./mappers');
 
 module.exports = {
   get,
+  getAllProjects,
   insert,
   update,
   remove,
   getProjectActions,
 };
+
+function getAllProjects() {
+  return db('projects');
+}
 
 function get(id) {
   let query = db('projects as p');
